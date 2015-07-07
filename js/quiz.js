@@ -22,4 +22,4 @@ for (var i = 0; i < quiz.length; i += 1) {
   }
   alert("You got " + numberCorrect + "correct so far");
 }
-alert("Total correct: " + numberCorrect "out of " + quiz.length);
+alert("Total correct: " + numberCorrect + "out of " + quiz.length);

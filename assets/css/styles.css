@@ -1,0 +1,67 @@
+body {
+  background-color: #252525
+}
+
+.splash {
+  background-image: url("../images/bwportrait.jpg");
+  background-size: cover;
+  height: 400px;
+}
+.splash.secondary {
+  background-image: url("../images/bwlandscape.jpg");
+  background-size: cover;
+  height: 175px;
+  background-position: 0px;
+}
+.splash h1 {
+  display: block;
+  float: right;
+  color: #252525;
+  margin-right: 30px;
+  border-bottom: 4px solid #7daf7d;
+}
+.splash h2 {
+  display: inline;
+  float: left;
+  color: #252525;
+  margin-left: 30px;
+  border-bottom: 2px solid #7daf7d;
+}
+.transp-bar {
+  display: inline;
+  float: left;
+  background-color: rgba(255, 255, 255, 0.25);
+  margin-top: 50px;
+  width:100%;
+}
+
+.box-ugly {
+  border: hidden;
+  border-radius: 4px;
+  background-color: rgba(71, 27, 57, 0.5);
+  color: rgb(255, 255, 255)
+}
+p {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.footer {
+  background-image: url("../images/bwlandscape.jpg");
+  background-size: cover;
+  background-position: 0px 73px;
+  height: 40px;
+}
+.footer > div {
+  margin: auto;
+  width: 300px;
+  margin-top: 8px;
+  text-align: center;
+  background-color: #7daf7d;
+  border-radius: 10px;
+}
+.footer a {
+  padding-left: 6px;
+  padding-right: 6px;
+  color: #252525;
+}

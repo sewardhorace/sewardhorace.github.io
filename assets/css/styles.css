@@ -58,6 +58,12 @@ img {
   color: #252525;
   border-bottom: 2px solid #7daf7d;
 }
+.splash small{
+  display: block;
+  margin-top: 384px;
+  margin-right: 6px;
+  color: #9d9d9d;
+}
 
 .row {
   background-color: black;
@@ -115,7 +121,7 @@ img {
   background-image: url("../images/bwlandscape.jpg");
   background-size: cover;
   background-position: 0px 73px;
-  height: 50px;
+  height: 54px;
   margin-top: 14px;
 }
 .footer > div {
@@ -132,6 +138,17 @@ img {
   color: #252525;
   font-size:18px;
 }
+.footer small {
+  margin-top:2px;
+  display:block;
+  color: #9d9d9d;
+  font-size: 85%;
+}
+.footer small a {
+  font-size: 100%;
+  color: #618761;
+}
+
 
 .group > .resume {
   padding:10px;

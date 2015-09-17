@@ -138,9 +138,13 @@ img {
 }
 .resume h1 {
   font-size: 18px;
-  border-bottom:1px solid #8a8a8a;
+  border-bottom:1px solid #4a4a4a;
 }
 .resume p {
   margin-top:3px;
   margin-bottom: 3px;
+}
+
+.preformatted {
+  white-space: pre-wrap;
 }

@@ -5,6 +5,10 @@ body {
 a {
   color: #618761;
 }
+a:hover {
+  color: #74ad74;
+  text-decoration: none;
+}
 
 h4 {
   text-align: center;

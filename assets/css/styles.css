@@ -1,3 +1,12 @@
+@keyframes fade-in {
+  0% {
+    color: rgba(0,0,0,0);
+  }
+  100% {
+    color: inherit;
+  }
+}
+
 body {
   background-color: #252525
 }
@@ -38,6 +47,7 @@ img {
   color: #252525;
   margin-right: 30px;
   border-bottom: 4px solid #7daf7d;
+  animation: fade-in 1s ease-in;
 }
 .splash h2 {
   display: inline;
@@ -119,6 +129,44 @@ img {
   margin: auto;
   margin-top: 6px;
 }
+/*tut*/
+.view {
+   float: left;
+   overflow: hidden;
+   position: relative;
+   text-align: center;
+   /*cursor: default;*/
+}
+.view .mask {
+   /*position: absolute;*/
+   /*overflow: hidden;*/
+}
+.view img {
+   /*display: block;*/
+   /*position: relative;*/
+}
+.fourth-effect .mask {
+   position:relative;; /* Center the mask */
+   /*top:50px;
+   left:100px;*/
+   border-radius: 50px;
+   border-width: 50px;
+   /*display: inline-block;*/
+   /*height: 100px;
+   width: 100px;*/
+   border: 50px solid rgba(0, 0, 0, 0.7);
+   /*box-sizing:border-box;*/
+   opacity:1;
+   visibility:visible;
+   transform:scale(4);
+   transition:all 0.3s ease-in-out;
+}
+.fourth-effect:hover .mask {
+   opacity: 0;
+   border:0px solid rgba(0,0,0,0.7);
+   visibility:hidden;
+}
+/*end tut*/
 
 
 .footer {
@@ -141,6 +189,10 @@ img {
   padding-right: 6px;
   color: #252525;
   font-size:18px;
+  transition: font-size 0.25s;
+}
+.footer a:hover{
+  font-size: 20px;
 }
 .footer small {
   margin-top:2px;

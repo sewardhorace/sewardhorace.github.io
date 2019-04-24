@@ -1,0 +1,61 @@
+
+body {
+    margin: 0;
+    background-color: black;
+}
+
+canvas {
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0 auto;
+    display: block;
+}
+
+#dialog {
+    left: 50%;
+    transform: translate(-50%);
+    height: 25vh;
+    width: 121vh;
+    bottom: 2vh;
+    padding: 3vh;
+    text-align: justify;
+    text-justify: distribute; /*keep or trash?*/
+    /*overflow-y: scroll;*/
+    color: rgba(255, 255, 255, 1);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 3vh;
+    line-height: 2em;
+    white-space: pre-wrap;
+    border-style: outset;
+    border-width: 1.5vh;
+    border-color: rgba(255, 255, 255, 0.7);
+    z-index: 100;
+    display: block;
+    position: absolute;
+    background-color: rgba(0, 0, 120, 0.7);
+}
+
+#dialog a {
+    color: rgba(255, 255, 255, 1);
+}
+
+    #dialog a:hover {
+        color: rgba(200, 200, 255, 1);
+    }
+
+#options {
+    position: absolute;
+    bottom: 2vh;
+}
+
+.dialog-option {
+    padding: 1vh;
+    margin: 0 -1vh;
+    color: rgba(255, 255, 255, 1);
+    text-decoration: none;
+}
+
+#dialog .dialog-option:hover {
+    background-color: rgba(255, 255, 255, 1);
+    color: rgba(0, 0, 120, 1);
+}

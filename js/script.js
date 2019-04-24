@@ -442,6 +442,7 @@ function Dialog() {
     };
 
     function handleClick(e) {
+        e.preventDefault();
         var key = e.target.getAttribute('data-key');
         switch (key) {
             case dialogOptions.toProjects.getAttribute('data-key'):

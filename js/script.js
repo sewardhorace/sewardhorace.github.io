@@ -40,9 +40,9 @@ var PROJECTS = [
 var FACTS = [
     "Max's origins are a bit mysterious... but I do know he's from Iowa and grew up doing farm work.",
     "He'd never tell it, but of Max's many hobbies, his favorite is playing tabletop role-playing games like D&D.",
-    "There's a pair of tango shoes back here somewhere, and Max has been known to use them.",
+    "I found a pair of tango shoes and a Florindo Sassone record back here somewhere...",
     "Since I sometimes have to do the cookin' around here, I know Max's favorite food is gyros.",
-    "Max's favorite book is the Book of the New Sun by Gene Wolfe.",
+    "Max's favorite book is the Book of the New Sun by Gene Wolfe. He seriously won't shut up about it.",
     "Don't tell him I said so, but Max's Spanish is getting a bit rusty...",
     "For some reason Max is really into a band called Diarrhea Planet. I can't get past the name though...",
     "Max's favorite video game of all time is Star Fox 64.",
@@ -97,11 +97,12 @@ function FlameLight(vector3) {
     pointLight.shadow.mapSize.width = 1024;
     pointLight.shadow.mapSize.height = 1024;
     this.point = pointLight;
+    this.rate = Math.random() + 1;
 
     this.update = function (time) {
         //TODO: more noise for flickering
         //https://codepen.io/prisoner849/pen/XPVGLp
-        var i = 20 + Math.sin(time * Math.PI * 2) * Math.cos(time * Math.PI * 1.5) * 2;
+        var i = 20 + Math.sin(this.rate * time * Math.PI * 2) * Math.cos(this.rate * time * Math.PI * 1.5) * 2;
         this.point.intensity = i;
     }
 }
@@ -120,11 +121,12 @@ camera.lookAt(camera.target);
 //TODO: limited strafing controls?
 
 var loader = new THREE.GLTFLoader();
-var model, mixer, animations;
 
+var mixer;
  loader.load(
      'assets/shop_scene.glb',
      function (gltf) {
+         console.log("done");
          gltf.scene.traverse(function (node) {
              if (node instanceof THREE.Mesh) {
                  node.castShadow = true;
@@ -137,14 +139,16 @@ var model, mixer, animations;
          ANIMATIONS.home = mixer.clipAction(gltf.animations.find(anim => anim.name === 'Rest'));
          ANIMATIONS.transition = mixer.clipAction(gltf.animations.find(anim => anim.name === 'DisplayTransition'));
          ANIMATIONS.projects = mixer.clipAction(gltf.animations.find(anim => anim.name === 'Display'));
-
          ANIMATIONS.transition.loop = THREE.LoopOnce;
+         ANIMATIONS.home.play();
 
          scene.add(model);
-         ANIMATIONS.home.play();
+         dialog.displayHome();
+         
      },
      function (xhr) {
-         //TODO: display loading progress or some type of feedback
+         dialog.displayLoading();
+         //console.log(xhr);
      },
      function (error) {
          //console.log(error);
@@ -393,6 +397,11 @@ function Dialog() {
         }
     };
 
+    function displayLoading() {
+        updateText('Loading 3D... Please wait...');
+        updateOptions([]);
+    };
+
     function displayHome() {
         setHomePositions();
         updateText(tree.home.html);
@@ -469,6 +478,7 @@ function Dialog() {
 
     optionsNode.addEventListener('click', handleClick, false);
 
+    this.displayLoading = displayLoading;
     this.displayHome = displayHome;
 };
 

@@ -4,17 +4,17 @@
 var projectIdx = 0;
 var PROJECTS = [
     {
-        html: '<a href="http://pacific-mountain-63896.herokuapp.com/">Infinite Labyrinth</a>: a web app with Tabletop RPG tools built with Django and the HTML Canvas API',
+        html: '<a href="http://pacific-mountain-63896.herokuapp.com/">Infinite Labyrinth</a>: a web app with Tabletop RPG tools built with Django and the HTML Canvas API (WIP)',
         modelPath: 'assets/sword.glb',
         model: null,
     },
     {
-        html: '<a href="https://twitter.com/fabricreature">Tweet Bestiary</a>: a Twitter bot that generates randomized fantastic creatures',
+        html: '<a href="https://twitter.com/fabricreature">Tweet Bestiary</a>: a Twitter bot that generates randomized fantastic creatures (WIP)',
         modelPath: 'assets/axe.glb',
         model: null,
     },
     {
-        html: '<a href="https://twitter.com/fabricreature">Revugle</a>: a web app for communities to share media reviews (WIP)',
+        html: '<a href="https://revugle.com">Revugle</a>: a web app for communities to share media reviews (WIP)',
         modelPath: 'assets/helm.glb',
         model: null,
     },

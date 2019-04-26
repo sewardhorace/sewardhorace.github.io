@@ -14,7 +14,7 @@ var PROJECTS = [
         model: null,
     },
     {
-        html: '<a href="https://revugle.com">Revugle</a>: a web app for communities to share media reviews (WIP)',
+        html: '<a href="http://revugle.com">Revugle</a>: a web app for communities to share media reviews (WIP)',
         modelPath: 'assets/helm.glb',
         model: null,
     },

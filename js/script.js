@@ -28,13 +28,11 @@ var PROJECTS = [
         modelPath: 'assets/sheild.glb',
         model: null,
     },
-    /*
     {
         html: 'Try the <a href="head2head/" target="_blank">Head2Head Picker</a> if you need to narrow down a choice. Nothing fancy, but it gets the job done.',
         modelPath: 'assets/sheild.glb',
         model: null,
     },
-    */
     /*
     {
         html: '<a href="dungeonballsupercrawl.com">Dungeon Ball Super Crawl</a>: a blog about tabletop role-playing games and other fantasy stuff',

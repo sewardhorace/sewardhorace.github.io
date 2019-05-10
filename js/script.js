@@ -4,30 +4,37 @@
 var projectIdx = 0;
 var PROJECTS = [
     {
-        html: '<a href="http://pacific-mountain-63896.herokuapp.com/">Infinite Labyrinth</a>: a web app with Tabletop RPG tools built with Django and the HTML Canvas API (WIP)',
+        html: '<a href="http://pacific-mountain-63896.herokuapp.com/" target="_blank">Infinite Labyrinth</a>: a web app with Tabletop RPG tools built with Django and the HTML Canvas API (WIP)',
         modelPath: 'assets/sword.glb',
         model: null,
     },
     {
-        html: '<a href="https://twitter.com/fabricreature">Tweet Bestiary</a>: a Twitter bot that generates randomized fantastic creatures (WIP)',
+        html: '<a href="https://twitter.com/fabricreature" target="_blank">Tweet Bestiary</a>: a Twitter bot that generates randomized fantastic creatures (WIP)',
         modelPath: 'assets/axe.glb',
         model: null,
     },
     {
-        html: '<a href="http://revugle.com">Revugle</a>: a web app for communities to share media reviews (WIP)',
+        html: '<a href="http://revugle.com" target="_blank">Revugle</a>: a web app for communities to share media reviews (WIP)',
         modelPath: 'assets/helm.glb',
         model: null,
     },
     {
-        html: 'The... interesting... musical musings of <a href="https://soundcloud.com/max-white-414816156">plain yogurt</a>',
+        html: 'The... interesting... musical musings of <a href="https://soundcloud.com/max-white-414816156" target="_blank">plain yogurt</a>',
         modelPath: 'assets/lute.glb',
         model: null,
     },
     {
-        html: 'A bit of dusty old <a href="https://imgur.com/user/sewardhorace">artwork</a>, in various media',
+        html: 'A bit of dusty old <a href="https://imgur.com/user/sewardhorace" target="_blank">artwork</a>, in various media',
         modelPath: 'assets/sheild.glb',
         model: null,
     },
+    /*
+    {
+        html: 'Try the <a href="head2head/" target="_blank">Head2Head Picker</a> if you need to narrow down a choice. Nothing fancy, but it gets the job done.',
+        modelPath: 'assets/sheild.glb',
+        model: null,
+    },
+    */
     /*
     {
         html: '<a href="dungeonballsupercrawl.com">Dungeon Ball Super Crawl</a>: a blog about tabletop role-playing games and other fantasy stuff',

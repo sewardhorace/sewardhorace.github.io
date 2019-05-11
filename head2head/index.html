@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
 
   <title>Head2Head Picker</title>
   <meta name="description" content="Head2Head Picker">
@@ -19,40 +19,56 @@
 <body>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-2"></div>
-      <div class="col-8 content">
+      <div class="col-xs-0 col-md-2"></div>
+      <div class="col-xs-12 col-md-8 content">
 
-    <div>
-      <h1>Head 2 Head Picker</h1>
-    </div>
+        <div>
+          <h1>Head 2 Head Picker</h1>
+        </div>
 
-    <div>
-      <label id="file-input-label" for="file-input" class="button">Select a .txt file with one option per line</label>
-      <input type="file" name="file-input" id="file-input" accept=".txt" hidden="true">
-    </div>
+        <div id="form" hidden="true">
 
-    <div>
-      <div id="file-name">(No file chosen)</div>
-    </div>
+          <button id="back-btn" type="button" class="button">Go Back</button>
 
-    <div>
-      <button id="0" type="button" class="button" disabled="true">Choice 1</button>
-      <button id="1" type="button" class="button" disabled="true">Choice 2</button>
-    </div>
+          <!--hidden on mobile -->
+          <div class="d-none d-md-block">
 
-    <div class="results">
-      <div id="count-remaining">Options Remaining: 0</div>
-      
-      <div id="message" hidden="true">Winner!</div>
+            <label id="file-input-label" for="file-input" class="button">Select a .txt file with one option per line</label>
+            <input type="file" name="file-input" id="file-input" accept=".txt" hidden="true">
 
-      <label class="checkbox">Hide Remaining
-        <input type="checkbox" id="hide-remaining">
-      </label>
-      <div id="remaining"></div>
-    </div>
+            <div>Or</div>
+
+          </div>
+
+          <form>
+          <div class="form-group">
+            <button id="text-submit-btn" type="button" class="button">Enter options separated by lines</button>
+            <textarea class="form-control" id="textarea" rows="10"></textarea>
+          </div>
+          </form>
+        </div>
+
+        <div id="results">
+
+          <button id="data-btn" type="button" class="button">Select Options</button>
+
+          <button id="0" type="button" class="button" disabled="true">Choice 1</button>
+          <button id="1" type="button" class="button" disabled="true">Choice 2</button>
+
+          <div id="count-remaining">Options Remaining: 0</div>
+          
+          <div id="message" hidden="true">Winner!</div>
+
+          <label class="checkbox">Hide Remaining
+            <input type="checkbox" id="hide-remaining">
+          </label>
+
+          <div id="remaining"></div>
+
+        </div>
 
       </div>
-      <div class="col-2"></div>
+      <div class="col-xs-0 col-md-2"></div>
     </div>
   </div>
   <script src="js/scripts.js"></script>

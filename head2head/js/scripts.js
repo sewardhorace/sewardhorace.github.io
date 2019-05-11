@@ -1,27 +1,33 @@
 
 function Head2HeadPicker() {
 
+    var formNodes = document.getElementById('form');//container for the following nodes:
+
+    var backBtn = document.getElementById('back-btn');
     var fileInputNode = document.getElementById('file-input');
-    var fileNameNode = document.getElementById('file-name');
+    var textSubmitBtn = document.getElementById('text-submit-btn');
+    var textareaNode = document.getElementById('textarea');
+
+    var resultsNodes = document.getElementById('results');//container for the following nodes:
+
+    var dataBtn = document.getElementById('data-btn');
     var btn0 = document.getElementById('0');
     var btn1 = document.getElementById('1');
     var countNode = document.getElementById('count-remaining');
+    var hideCheckBoxNode = document.getElementById('hide-remaining');
     var messageNode = document.getElementById('message');
     var remainingNode = document.getElementById('remaining');
-    var hideCheckBoxNode = document.getElementById('hide-remaining');
 
     var options = [];
     var option0 = "";
     var option1 = "";
 
-    var loadFileData = function(file) {
-        fileNameNode.innerHTML = file.name;
+    var loadData = function(data) {
+        resultsNodes.removeAttribute('hidden');
         messageNode.setAttribute('hidden', 'true');
-        options = file.result.split('\n');
-        if (options.length > 1) {
-            btn0.disabled = false;
-            btn1.disabled = false;
-        }        
+        messageNode.innerHTML = "Winner:";
+        options = data.split('\n');
+        if (options.length > 0) showResults();
         displayNextChoice();
     };
 
@@ -32,11 +38,27 @@ function Head2HeadPicker() {
         }
         var reader = new FileReader();
         reader.onload = function(e) {
-            var result = e.target;
-            result.name = file.name;
-            loadFileData(result);
+            loadData(e.target.result);
         };
         reader.readAsText(file);
+    };
+
+    var readText = function(e) {
+        var data = textarea.value;
+        console.log(data);
+        if (data.trim().length == 0) return;
+
+        loadData(data);
+    };
+
+    var showResults = function() {
+        formNodes.setAttribute('hidden', 'true');
+        resultsNodes.removeAttribute('hidden');
+    };
+
+    var showForms = function() {
+        resultsNodes.setAttribute('hidden', 'true');
+        formNodes.removeAttribute('hidden');
     };
 
     var displayNextChoice = function() {
@@ -61,11 +83,15 @@ function Head2HeadPicker() {
             btn0.innerHTML = option0;
             btn1.innerHTML = option1;
 
-        } else {
+            btn0.disabled = false;
+            btn1.disabled = false;
+
+        } else if (options.length == 1) {
 
             btn0.disabled = true;
             btn1.disabled = true;
             messageNode.removeAttribute('hidden');
+            messageNode.innerHTML = "Winner: " + options.shift();
             remainingNode.removeAttribute('hidden');
 
         }
@@ -94,6 +120,9 @@ function Head2HeadPicker() {
     };
 
     fileInputNode.addEventListener('change', readFile, false);
+    textSubmitBtn.addEventListener('click', readText, false);
+    backBtn.addEventListener('click', showResults, false);
+    dataBtn.addEventListener('click', showForms, false);
     btn0.addEventListener('click', handleSelection, false);
     btn1.addEventListener('click', handleSelection, false);
     hideCheckBoxNode.addEventListener('change', toggleHidden, false);

@@ -30,7 +30,7 @@ var PROJECTS = [
     },
     {
         html: 'Try the <a href="head2head/" target="_blank">Head2Head Picker</a> if you need to narrow down a choice. Nothing fancy, but it gets the job done.',
-        modelPath: 'assets/sheild.glb',
+        modelPath: 'assets/potion_blue.glb',
         model: null,
     },
     /*
@@ -129,7 +129,7 @@ var loader = new THREE.GLTFLoader();
 
 var mixer;
  loader.load(
-     'assets/shop_scene.glb',
+     'assets/shop_scene_2.glb',
      function (gltf) {
          console.log("done");
          gltf.scene.traverse(function (node) {

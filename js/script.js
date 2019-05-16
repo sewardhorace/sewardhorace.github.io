@@ -33,6 +33,11 @@ var PROJECTS = [
         modelPath: 'assets/potion_blue.glb',
         model: null,
     },
+    {
+        html: 'A <a href="https://docs.google.com/document/d/1BGIGxDJEZr7ORHpLVd-SMesCf-G84P5UkHWLByVYZBI/edit?usp=sharing" target="_blank">Resume</a>, if that\'s what you\'re into.',
+        modelPath: 'assets/bow.glb',
+        model: null,
+    },
     /*
     {
         html: '<a href="dungeonballsupercrawl.com">Dungeon Ball Super Crawl</a>: a blog about tabletop role-playing games and other fantasy stuff',
@@ -129,7 +134,7 @@ var loader = new THREE.GLTFLoader();
 
 var mixer;
  loader.load(
-     'assets/shop_scene_2.glb',
+     'assets/shop_scene.glb',
      function (gltf) {
          console.log("done");
          gltf.scene.traverse(function (node) {

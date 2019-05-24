@@ -3,8 +3,7 @@
 var PEASANT_HTML_TEMPLATE = `
 <div class="peasant row" id="peasant">
 
-    <div class="col-md-12">
-        <button class="delete-btn">delete</button>
+    <div class="description col-md-12">
         <div>Occupation:<span class="written occupation">Blah</span></div>
         <div>HP:<span class="written hp">4</span></div>
         <div>Lucky roll: <span class="written lucky">blah</span></div>
@@ -53,6 +52,8 @@ var PEASANT_HTML_TEMPLATE = `
             <div><span class="written equip">Goods</span></div>
             <div><span class="written cp">14 cp</span></div>
         </div>
+
+        <button class="delete-btn">delete</button>
     </div>
     </div>
 `;
@@ -381,7 +382,6 @@ var target = document.getElementsByClassName("content")[0];
 var id = 0;
 function addPeasant() {
     id++;
-    console.log(id);
     var elem = templateToElement(PEASANT_HTML_TEMPLATE);
     var p = new Peasant();
 

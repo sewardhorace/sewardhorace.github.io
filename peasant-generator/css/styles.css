@@ -53,6 +53,7 @@ a {
     background-color: inherit;
     position: absolute;
     right: 10px;
+    bottom: 0px;
 }
 
 .delete-btn:hover {
@@ -64,7 +65,7 @@ a {
 }
 
 .peasant {
-    padding: 15px 0;
+    padding: 15px 0 10px;
     margin: 20px -15px;
     background-color:  	#feffb7;
     box-shadow: 0px 5px 5px grey;
@@ -90,10 +91,6 @@ h2 {
 
 .table-header {
     font-weight: bold;
-}
-
-.abilities .equipment {
-    margin: 10px 0;
 }
 
 .ability {

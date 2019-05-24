@@ -1,0 +1,102 @@
+body {
+    background-color: #222222;
+}
+
+.content {
+    background-color: white;
+    font-family: 'Special Elite', cursive;
+}
+
+.header {
+    margin: 0px -15px 20px;
+    background-color:#afceff;
+    box-shadow: 0px 5px 5px grey;
+}
+
+.title {
+    line-height: 1em;
+    font-size:xx-large;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.subtitle {
+    font-size: small;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+a {
+    color: #002e77;
+}
+
+.go-btn {
+    margin-bottom: 15px;
+}
+
+#generate-btn {
+    width: 200px;
+    background-color: #f9f9f9;
+}
+
+#generate-btn:hover {
+    background-color: #f2f2f2;
+}
+
+#generate-btn:active {
+    background-color: #ffffff;
+}
+
+.delete-btn {
+    border: none;
+    color: black;
+    background-color: inherit;
+    position: absolute;
+    right: 10px;
+}
+
+.delete-btn:hover {
+    color: #a30000;
+}
+
+.delete-btn:active {
+    color: red;
+}
+
+.peasant {
+    padding: 15px 0;
+    margin: 20px -15px;
+    background-color:  	#feffb7;
+    box-shadow: 0px 5px 5px grey;
+}
+
+h2 {
+    margin-top: 10px;
+    font-size:medium;
+    font-weight: bold;
+    /**border-bottom: 2px dashed;**/
+}
+
+.written {
+    font-family: 'Indie Flower', cursive;
+    padding-left: 10px;
+    color: #002e77;
+}
+
+
+.header {
+   
+}
+
+.table-header {
+    font-weight: bold;
+}
+
+.abilities .equipment {
+    margin: 10px 0;
+}
+
+.ability {
+    display: grid;
+    grid-template-columns: 120px 20px auto;
+}

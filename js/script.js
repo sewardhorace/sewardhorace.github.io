@@ -38,6 +38,11 @@ var PROJECTS = [
         modelPath: 'assets/bow.glb',
         model: null,
     },
+    {
+        html: 'A <a href="peasant-generator/" target="_blank">Peasant Generator</a> - handy for when you need a peasant in a pinch.',
+        modelPath: 'assets/dagger_green.glb',
+        model: null,
+    },
     /*
     {
         html: '<a href="dungeonballsupercrawl.com">Dungeon Ball Super Crawl</a>: a blog about tabletop role-playing games and other fantasy stuff',

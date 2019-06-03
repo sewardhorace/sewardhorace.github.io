@@ -1,0 +1,38 @@
+html, body {
+	background-color:  black;
+}
+
+.content {
+	color: #ffffff;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    color: #7cffb6;
+}
+
+a:hover {
+    color: #57b27f;
+}
+
+.mobile-warn {
+    font-weight: bold;
+    background-color: #894400;
+    border-radius: 4px;
+    padding: 10px 0;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.mobile-warn a {
+    color: #7cffb6;
+}
+
+.header {
+    margin-top: 20px;
+}
+
+.project {
+    margin: 8px -15px;
+}

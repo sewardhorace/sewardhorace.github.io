@@ -49,12 +49,16 @@ var PROJECTS = [
 ];
 
 var FACTS = [
-    "Max's origins are a bit mysterious... but I do know he's from Iowa and grew up doing farm work.",
-    "He'd never tell it, but of Max's many hobbies, his favorite is playing tabletop role-playing games like D&D.",
+    //"Max's origins are a bit mysterious... but I do know he's from Iowa and grew up doing farm work.",
+    //"He'd never tell it, but of Max's many hobbies, his favorite is playing tabletop role-playing games like D&D.",
     "I found a pair of tango shoes and a Florindo Sassone record back here somewhere...",
-    "Since I sometimes have to do the cookin' around here, I know Max's favorite food is gyros.",
-    "Max's favorite book is the Book of the New Sun by Gene Wolfe. He seriously won't shut up about it.",
-    "Don't tell him I said so, but Max's Spanish is getting a bit rusty...",
-    "For some reason Max is really into a band called Diarrhea Planet. I can't get past the name though...",
-    "Max's favorite video game of all time is Star Fox 64.",
+    "Gyros have been de-throned as the best food ever. All hail the new king, bánh mì.",
+    "Did you know that Gene Wolfe, author of the exquisite fantasy epic Book of the New Sun, also designed the Pringles machine? What a guy.",
+    //"Don't tell him I said so, but Max's Spanish is getting a bit rusty...",
+    "Diarrhea Planet broke up... *sob* May the halls of Valhalla echo with the sounds of their guitars.",
+    //"Max's favorite video game of all time is Star Fox 64.",
+    "Someday I'll make a pilgrimage to Lake Geneva, WI to have the spirit of Gary Gygax bless my dice.",
+    "Easy tuna casserole: 1 can condensed cream of mushroom soup, 2 cans tuna, 16oz cooked noodles. Combine, cover in shredded cheddar, and bake 20 minutes at 350 degrees.",
+    "Alright, I'll say it: Thor: Ragnarok is the best Marvel movie. Fight me.",
+    
 ];

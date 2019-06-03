@@ -302,7 +302,7 @@ function Dialog() {
 
     var tree = {
         home: {
-            html: "Welcome to maxjwhite.com! Max isn't in right now but he left me in charge. How can I help you?",
+            html: "Welcome to maxjwhite.com! How can I help you?",
             options: [
                 dialogOptions.toProjects,
                 dialogOptions.toFacts,

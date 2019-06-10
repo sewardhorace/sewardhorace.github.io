@@ -25,7 +25,7 @@ var PROJECTS = [
         model: null,
     },
     {
-        html: 'Try the <a href="head2head/" target="_blank">Head2Head Picker</a> if you need to narrow down a choice. Nothing fancy, but it gets the job done.',
+        html: 'Try the <a href="/head2head/" target="_blank">Head2Head Picker</a> if you need to narrow down a choice. Nothing fancy, but it gets the job done.',
         modelPath: 'assets/potion_blue.glb',
         model: null,
     },
@@ -35,7 +35,7 @@ var PROJECTS = [
         model: null,
     },
     {
-        html: 'A <a href="peasant-generator/" target="_blank">Peasant Generator</a> - handy for when you need a peasant in a pinch.',
+        html: 'A <a href="/peasant-generator/" target="_blank">Peasant Generator</a> - handy for when you need a peasant in a pinch.',
         modelPath: 'assets/dagger_green.glb',
         model: null,
     },

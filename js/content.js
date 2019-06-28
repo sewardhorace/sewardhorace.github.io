@@ -1,6 +1,6 @@
 var PROJECTS = [
     {
-        html: '<a href="http://pacific-mountain-63896.herokuapp.com/" target="_blank">Infinite Labyrinth</a>: a web app with Tabletop RPG tools built with Django and the HTML Canvas API (WIP)',
+        html: '<a href="/here-be-dragons/" target="_blank">Here Be Dragons</a>: a Tabletop RPG organization tool built with the HTML Canvas API',
         modelPath: 'assets/sword.glb',
         model: null,
     },
@@ -10,7 +10,7 @@ var PROJECTS = [
         model: null,
     },
     {
-        html: '<a href="http://revugle.com" target="_blank">Revugle</a>: a web app for communities to share media reviews (WIP)',
+        html: '<a href="http://revugle.com" target="_blank">Revugle</a>: a web app for sharing reviews with friends. Built with Python/Django.',
         modelPath: 'assets/helm.glb',
         model: null,
     },
@@ -25,7 +25,7 @@ var PROJECTS = [
         model: null,
     },
     {
-        html: 'Try the <a href="/head2head/" target="_blank">Head2Head Picker</a> if you need to narrow down a choice. Nothing fancy, but it gets the job done.',
+        html: 'Try the <a href="/head2head/" target="_blank">Head2Head Picker</a> if you need to narrow down a choice from a big list. Nothing fancy, but it gets the job done.',
         modelPath: 'assets/potion_blue.glb',
         model: null,
     },

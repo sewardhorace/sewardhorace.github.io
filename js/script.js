@@ -309,7 +309,7 @@ function Dialog() {
             ],
         },
         projectsHome: {
-            html: "We've got a couple things in stock. Maybe you'll find something to suit your taste.",
+            html: 'We\'ve got a couple things in stock. Maybe you\'ll find something to suit your taste. (All code can be found on <a href="https://github.com/sewardhorace/" target="_blank">github</a>)',
             options: [
                 dialogOptions.getNextProject,
                 dialogOptions.toHome,

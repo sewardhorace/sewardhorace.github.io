@@ -39,6 +39,11 @@ var PROJECTS = [
         modelPath: 'assets/dagger_green.glb',
         model: null,
     },
+    {
+        html: '<a href="https://sewardhorace.itch.io/ace-of-cage" target="_blank">Ace of Cage</a> - a two-page tabletop RPG about Nicolas Cage.',
+        modelPath: 'assets/crown.glb',
+        model: null,
+    },
     /*
     {
         html: '<a href="dungeonballsupercrawl.com">Dungeon Ball Super Crawl</a>: a blog about tabletop role-playing games and other fantasy stuff',

@@ -1,45 +1,4 @@
 
-//TODO: (if needed) detect if text is overflowing the dialog box; then user presses enter or clicks to advance dialog (??)
-
-var CAMERA = {
-    home: new THREE.Vector3(0, 6.5, 9),
-    projects: new THREE.Vector3(-3.4, 8, 7),
-};
-
-var ANIMATIONS = {
-    home: null,
-    transition: null,
-    projects: null,
-};
-
-var lightPositions = [
-    new THREE.Vector3(-8.79, 8.93, -1.44), //left side torch
-    new THREE.Vector3(9.11, 8.94, -1.44), //right side torch
-    new THREE.Vector3(3.45, 6.97, -6.20), //shelf candle
-    new THREE.Vector3(-1.96, 5.51, 3.60), //countertop candle
-];
-
-var isUserInteracting = false;
-    onMouseDownMouseX = 0, onMouseDownMouseY = 0,
-	lon = -90, onMouseDownLon = 0,
-	lat = 0, onMouseDownLat = 0,
-	phi = 0, theta = 0;
-
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(50, 4/3, 0.1, 1000);
-var renderer = new THREE.WebGLRenderer();
-
-renderer.setSize(window.innerHeight * 4/3, window.innerHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.physicallyCorrectLights = true;
-renderer.gammaInput = true; //?
-renderer.gammaOutput = true;
-renderer.gammaFactor = 2.2;
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.domElement.setAttribute('id', 'canvas');
-document.body.appendChild( renderer.domElement );
-
 function FlameLight(vector3) {
 
     this.position = vector3;
@@ -58,192 +17,7 @@ function FlameLight(vector3) {
         var i = 20 + Math.sin(this.rate * time * Math.PI * 2) * Math.cos(this.rate * time * Math.PI * 1.5) * 2;
         this.point.intensity = i;
     }
-}
-
-var lights = [];
-for (var i = 0; i < lightPositions.length; i++) {
-    var flame = new FlameLight(lightPositions[i]);
-    lights.push(flame);
-    scene.add(flame.point);
-}
-
-camera.position.set(CAMERA.home.x, CAMERA.home.y, CAMERA.home.z);
-camera.target = new THREE.Vector3(0, 0, -500);
-camera.lookAt(camera.target);
-
-//TODO: limited strafing controls?
-
-var loader = new THREE.GLTFLoader();
-
-var mixer;
- loader.load(
-     'assets/shop_scene.glb',
-     function (gltf) {
-         console.log("done");
-         gltf.scene.traverse(function (node) {
-             if (node instanceof THREE.Mesh) {
-                 node.castShadow = true;
-                 node.receiveShadow = true;
-             }
-         });
-         model = gltf.scene;
-         mixer = new THREE.AnimationMixer(model);
-
-         ANIMATIONS.home = mixer.clipAction(gltf.animations.find(anim => anim.name === 'Rest'));
-         ANIMATIONS.transition = mixer.clipAction(gltf.animations.find(anim => anim.name === 'DisplayTransition'));
-         ANIMATIONS.projects = mixer.clipAction(gltf.animations.find(anim => anim.name === 'Display'));
-         ANIMATIONS.transition.loop = THREE.LoopOnce;
-         ANIMATIONS.home.play();
-
-         scene.add(model);
-         dialog.displayHome();
-         
-     },
-     function (xhr) {
-         dialog.displayLoading();
-         //console.log(xhr);
-     },
-     function (error) {
-         //console.log(error);
-     }
- );
-
- function loadProjectAsset(idx) {
-     loader.load(PROJECTS[idx].modelPath,
-        function (gltf) {
-            gltf.scene.traverse(function (node) {
-                if (node instanceof THREE.Mesh) {
-                    node.castShadow = true;
-                    node.receiveShadow = true;
-                }
-            });
-            var m = 
-            m = gltf.scene;
-            m.position.x = -3.4;
-            m.position.y = 8.6;
-            m.position.z = 0.3;
-            m.rotation.z = 0.1;
-            m.visible = false;
-            scene.add(m);
-            PROJECTS[idx].model = m;
-        },
-        function (xhr) {
-            //TODO: display loading progress or some type of feedback
-        },
-        function (error) {
-            //console.log(error);
-        }
-    );
- }
-
- for (var i = 0; i < PROJECTS.length; i++) {
-     loadProjectAsset(i);
- }
-
-
-var projectIdx = 0;
- 
-var clock = new THREE.Clock();
-var time = 0;
-function render() {
-
-    var delta = clock.getDelta();
-     if (mixer != null) {
-         mixer.update(delta);
-     };
-    
-     time += delta;
-     for (var i = 0; i < lights.length; i++) {
-         lights[i].update(time);
-     }
-
-     if (PROJECTS[projectIdx].model != null) {
-         PROJECTS[projectIdx].model.rotation.y -= 0.02;
-     }
-
-    //view controls
-     lat = Math.max(-85, Math.min(85, lat));
-     phi = THREE.Math.degToRad(90 - lat);
-     theta = THREE.Math.degToRad(lon);
-     camera.target.x = 500 * Math.sin(phi) * Math.cos(theta);
-     camera.target.y = 500 * Math.cos(phi);
-     camera.target.z = 500 * Math.sin(phi) * Math.sin(theta);
-     
-     camera.lookAt(camera.target);
-
-     renderer.render(scene, camera);
- }
-
-function animate() {
-    requestAnimationFrame(animate);
-    render();
-}
-animate();
-
-
-function setHomePositions() {
-    if (mixer != null) {
-        mixer.stopAllAction();
-        ANIMATIONS.transition.setEffectiveTimeScale(-1);
-        ANIMATIONS.projects.crossFadeTo(ANIMATIONS.transition, 1.5, false).play();
-        ANIMATIONS.home.crossFadeFrom(ANIMATIONS.transition, 1.5, false).play();
-    }
-    camera.position.set(CAMERA.home.x, CAMERA.home.y, CAMERA.home.z);
-    if (PROJECTS[projectIdx].model) {
-        PROJECTS[projectIdx].model.visible = false;
-    }
 };
-
-function setZoomPositions() {
-    if (mixer != null) {
-        mixer.stopAllAction();
-        ANIMATIONS.transition.setEffectiveTimeScale(1);
-        ANIMATIONS.home.crossFadeTo(ANIMATIONS.transition, 1.5, false).play();
-        ANIMATIONS.projects.crossFadeFrom(ANIMATIONS.transition, 1.5, false).play();
-    }
-    camera.position.set(CAMERA.projects.x, CAMERA.projects.y, CAMERA.projects.z);
-};
-
-window.addEventListener('resize', onWindowResize, false);
-document.addEventListener('mousemove', onDocumentMouseMove, false);
-document.addEventListener('mousedown', onDocumentMouseDown, false);
-document.addEventListener('mouseup', onDocumentMouseUp, false);
-//document.addEventListener('touchstart', onPointerStart, false); //touch support
-//document.addEventListener('touchmove', onPointerMove, false);
-
-function onWindowResize() {
-    renderer.setSize(window.innerHeight * 4 / 3, window.innerHeight);
-}
-
-function onDocumentMouseDown(e) {
-    isUserInteracting = true;
-    var clientX = e.clientX;
-    var clientY = e.clientY;
-    onMouseDownMouseX = clientX;
-    onMouseDownMouseY = clientY;
-    onMouseDownLon = lon;
-    onMouseDownLat = lat;
-}
-
-function onDocumentMouseUp(e) {
-    isUserInteracting = false;
-}
-
-function onDocumentMouseMove(e) {
-    if (isUserInteracting === true) {
-        var clientX = e.clientX;
-        var clientY = e.clientY;
-        lon = (onMouseDownMouseX - clientX) * 0.1 + onMouseDownLon;
-        lat = (clientY - onMouseDownMouseY) * 0.1 + onMouseDownLat;
-
-        //restrict viewing angles
-        if (lon > -70) lon = -70;
-        if (lon < -110) lon = -110;
-        if (lat > 15) lat = 15;
-        if (lat < -20) lat = -20;
-    }
-}
-
 
 function DialogOption(option) {
     var anchor = document.createElement('a');
@@ -252,55 +26,44 @@ function DialogOption(option) {
     anchor.appendChild(document.createTextNode(option.text));
     anchor.setAttribute('data-key', option.key);
     return anchor;
-}
+};
 
-function Dialog() {
-    //text node displays message
-    var textNode = document.createElement('div');
-    textNode.setAttribute('id', 'text');
+var dialogOptions = {
+    toProjects: new DialogOption({
+        text: "Show me the goods.",
+        key: 'projects',
+    }),
+    toFacts: new DialogOption({
+        text: "Got any juicy gossip?",
+        key: 'facts',
+    }),
+    getNextProject: new DialogOption({
+        text: "Next",
+        key: 'project-next',
+    }),
+    getPrevProject: new DialogOption({
+        text: "Previous",
+        key: 'project-prev',
+    }),
+    getFact: new DialogOption({
+        text: "Anything else?",
+        key: 'fact',
+    }),
+    toHome: new DialogOption({
+        text: "Back",
+        key: 'home',
+    }),
+};
 
-    //options node displays dialog options
-    var optionsNode = document.createElement('div');
-    optionsNode.setAttribute('id', 'options');
+var Dialog = {
 
-    //container node
-    var node = document.createElement('div');
-    node.setAttribute('id', 'dialog');
+    projectIdx : 0,
+    
+    textNode : document.createElement('div'),//displays message
+    optionsNode : document.createElement('div'),//displays dialog options
+    node : document.createElement('div'),//container
 
-    //block camera controls
-    node.addEventListener('mousemove', function (e) { e.stopImmediatePropagation(); }, false);
-    node.appendChild(textNode);
-    node.appendChild(optionsNode);
-    this.node = node;
-
-    var dialogOptions = {
-        toProjects: new DialogOption({
-            text: "Show me the goods.",
-            key: 'projects',
-        }),
-        toFacts: new DialogOption({
-            text: "Got any juicy gossip?",
-            key: 'facts',
-        }),
-        getNextProject: new DialogOption({
-            text: "Next",
-            key: 'project-next',
-        }),
-        getPrevProject: new DialogOption({
-            text: "Previous",
-            key: 'project-prev',
-        }),
-        getFact: new DialogOption({
-            text: "Anything else?",
-            key: 'fact',
-        }),
-        toHome: new DialogOption({
-            text: "Back",
-            key: 'home',
-        }),
-    };
-
-    var tree = {
+    tree : {
         home: {
             html: "Welcome to maxjwhite.com! How can I help you?",
             options: [
@@ -330,18 +93,32 @@ function Dialog() {
                 dialogOptions.toHome,
             ],
         },
-    };
+    },
 
-    function updateText(html) {
-        var node = textNode;
+    init : function () {
+        this.textNode.setAttribute('id', 'text');
+        this.optionsNode.setAttribute('id', 'options');
+        this.node.setAttribute('id', 'dialog');
+
+        //block camera controls
+        this.node.addEventListener('mousemove', function (e) { e.stopImmediatePropagation(); }, false);
+        this.node.appendChild(this.textNode);
+        this.node.appendChild(this.optionsNode);
+        document.body.appendChild(this.node);
+
+        this.optionsNode.addEventListener('click', this.handleClick.bind(this), false);
+    },
+
+    updateText : function(html) {
+        var node = this.textNode;
         while (node.firstChild) {
             node.removeChild(node.firstChild);
         }
         node.innerHTML = html;
-    };
+    },
 
-    function updateOptions(options) {
-        var node = optionsNode;
+    updateOptions : function(options) {
+        var node = this.optionsNode;
         while (node.firstChild) {
             node.removeChild(node.firstChild);
         }
@@ -349,93 +126,312 @@ function Dialog() {
             node.appendChild(options[i]);
             node.appendChild(document.createTextNode(" "));
         }
-    };
+    },
 
-    function displayLoading() {
-        updateText('Loading 3D... Please wait...');
-        updateOptions([]);
-    };
+    displayLoading : function() {
+        this.updateText('Loading 3D... Please wait...');
+        this.updateOptions([]);
+    },
 
-    function displayHome() {
-        setHomePositions();
-        updateText(tree.home.html);
-        updateOptions(tree.home.options);
-    };
+    displayHome : function() {
+        this.setHomePositions();
+        this.updateText(this.tree.home.html);
+        this.updateOptions(this.tree.home.options);
+    },
 
-    function displayProjects() {
-        setZoomPositions();
-        projectIdx = PROJECTS.length - 1;
-        updateText(tree.projectsHome.html);
-        updateOptions(tree.projectsHome.options);
-    };  
+    displayProjects : function() {
+        this.setZoomPositions();
+        this.projectIdx = PROJECTS.length - 1;
+        this.updateText(this.tree.projectsHome.html);
+        this.updateOptions(this.tree.projectsHome.options);
+    },
 
-    function showNextProject() {
-        PROJECTS[projectIdx].model.visible = false;
-        projectIdx = projectIdx + 1;
-        if (projectIdx >= PROJECTS.length) projectIdx = 0;
-        PROJECTS[projectIdx].model.visible = true;
-        updateText(PROJECTS[projectIdx].html);
-        updateOptions(tree.projects.options);
-    };
+    showNextProject : function() {
+        PROJECTS[this.projectIdx].model.visible = false;
+        this.projectIdx = this.projectIdx + 1;
+        if (this.projectIdx >= PROJECTS.length) this.projectIdx = 0;
+        PROJECTS[this.projectIdx].model.visible = true;
+        this.updateText(PROJECTS[this.projectIdx].html);
+        this.updateOptions(this.tree.projects.options);
+    },
 
-    function showPrevProject() {
-        PROJECTS[projectIdx].model.visible = false;
-        projectIdx = projectIdx - 1;
-        if (projectIdx < 0) projectIdx = PROJECTS.length - 1;
-        PROJECTS[projectIdx].model.visible = true;
-        updateText(PROJECTS[projectIdx].html);
-    };
+    showPrevProject : function() {
+        PROJECTS[this.projectIdx].model.visible = false;
+        this.projectIdx = this.projectIdx - 1;
+        if (this.projectIdx < 0) this.projectIdx = PROJECTS.length - 1;
+        PROJECTS[this.projectIdx].model.visible = true;
+        this.updateText(PROJECTS[this.projectIdx].html);
+    },
 
-    function displayFacts() {
-        var fact = getRandomFact();
-        updateText(fact);
-        updateOptions(tree.facts.options);
-    };
+    displayFacts : function() {
+        var fact = this.getRandomFact();
+        this.updateText(fact);
+        this.updateOptions(this.tree.facts.options);
+    },
 
-    function updateFact() {
-        var fact = getRandomFact();
-        updateText(fact);
-    };
+    updateFact : function() {
+        var fact = this.getRandomFact();
+        this.updateText(fact);
+    },
 
-    function getRandomFact() {
+    getRandomFact : function() {
         var idx = Math.floor(Math.random() * FACTS.length);
         var fact = FACTS.splice(idx, 1)[0];
         if (fact) return fact;
         else return "That's everything I've heard.";
-    };
+    },
 
-    function handleClick(e) {
+    handleClick : function(e) {
         e.preventDefault();
         var key = e.target.getAttribute('data-key');
         switch (key) {
             case dialogOptions.toProjects.getAttribute('data-key'):
-                displayProjects();
+                this.displayProjects();
                 break;
             case dialogOptions.toFacts.getAttribute('data-key'):
-                displayFacts();
+                this.displayFacts();
                 break;
             case dialogOptions.getNextProject.getAttribute('data-key'):
-                showNextProject();
+                this.showNextProject();
                 break;
             case dialogOptions.getPrevProject.getAttribute('data-key'):
-                showPrevProject();
+                this.showPrevProject();
                 break;
             case dialogOptions.getFact.getAttribute('data-key'):
-                updateFact();
+                this.updateFact();
                 break;
             case dialogOptions.toHome.getAttribute('data-key'):
-                displayHome();
+                this.displayHome();
                 break;
             default:
         }
-    };
-
-    optionsNode.addEventListener('click', handleClick, false);
-
-    this.displayLoading = displayLoading;
-    this.displayHome = displayHome;
+    },
 };
 
-var dialog = new Dialog();
-dialog.displayHome();
-document.body.appendChild(dialog.node);
+var ShopScene = {
+    CAMERA_POSITIONS : {
+        home : new THREE.Vector3(0, 6.5, 9),
+        projects : new THREE.Vector3(-3.4, 8, 7)
+    },
+    ANIMATIONS : {
+        home: null,
+        transition: null,
+        projects: null,
+    },
+    LIGHT_POSITIONS : [
+        new THREE.Vector3(-8.79, 8.93, -1.44), //left side torch
+        new THREE.Vector3(9.11, 8.94, -1.44), //right side torch
+        new THREE.Vector3(3.45, 6.97, -6.20), //shelf candle
+        new THREE.Vector3(-1.96, 5.51, 3.60), //countertop candle
+    ],
+    lights : [],
+
+    //
+    isUserInteracting : false,
+    onMouseDownMouseX : 0,
+    onMouseDownMouseY : 0,
+    lon : -90,
+    onMouseDownLon : 0,
+    lat : 0, 
+    onMouseDownLat : 0,
+    phi : 0, 
+    theta : 0,
+    time : 0,
+
+    scene : new THREE.Scene(),
+    camera : new THREE.PerspectiveCamera(50, 4/3, 0.1, 1000),
+    renderer : new THREE.WebGLRenderer(),
+    loader : new THREE.GLTFLoader(),
+    clock : new THREE.Clock(),
+    mixer : null,
+    dialog : Dialog,
+
+    init : function() {
+
+        this.dialog.init();
+        this.dialog.setZoomPositions = this.setZoomPositions.bind(this);
+        this.dialog.setHomePositions = this.setHomePositions.bind(this);
+
+        //renderer
+        this.renderer.setSize(window.innerHeight * 4/3, window.innerHeight);
+        this.renderer.setPixelRatio(window.devicePixelRatio);
+        this.renderer.physicallyCorrectLights = true;
+        this.renderer.gammaInput = true; //?
+        this.renderer.gammaOutput = true;
+        this.renderer.gammaFactor = 2.2;
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        this.renderer.domElement.setAttribute('id', 'canvas');
+        document.body.appendChild( this.renderer.domElement );
+
+        //lights
+        for (var i = 0; i < this.LIGHT_POSITIONS.length; i++) {
+            var flame = new FlameLight(this.LIGHT_POSITIONS[i]);
+            this.lights.push(flame);
+            this.scene.add(flame.point);
+        }
+
+        //camera
+        this.camera.position.set(this.CAMERA_POSITIONS.home.x, this.CAMERA_POSITIONS.home.y, this.CAMERA_POSITIONS.home.z);
+        this.camera.target = new THREE.Vector3(0, 0, -500);
+        this.camera.lookAt(this.camera.target);
+
+        //assets
+        this.loader.load(
+            'assets/shop_scene.glb',
+            function (gltf) {
+                gltf.scene.traverse(function (node) {
+                    if (node instanceof THREE.Mesh) {
+                        node.castShadow = true;
+                        node.receiveShadow = true;
+                    }
+                });
+                model = gltf.scene;
+                this.mixer = new THREE.AnimationMixer(model);
+                this.ANIMATIONS.home = this.mixer.clipAction(gltf.animations.find(anim => anim.name === 'Rest'));
+                this.ANIMATIONS.transition = this.mixer.clipAction(gltf.animations.find(anim => anim.name === 'DisplayTransition'));
+                this.ANIMATIONS.projects = this.mixer.clipAction(gltf.animations.find(anim => anim.name === 'Display'));
+                this.ANIMATIONS.transition.loop = THREE.LoopOnce;
+                this.ANIMATIONS.home.play();
+
+                this.scene.add(model);
+                this.dialog.displayHome();
+            }.bind(this),
+            function (xhr) {
+                this.dialog.displayLoading();
+                //console.log(xhr);
+            }.bind(this),
+            function (error) {
+                //console.log(error);
+            }
+        );//end loader.load(...)
+        for (var i = 0; i < PROJECTS.length; i++) {
+            this.loadProjectAsset(i);
+        }
+
+        //event listeners
+        window.addEventListener('resize', this.onWindowResize.bind(this), false);
+        document.addEventListener('mousemove', this.onDocumentMouseMove.bind(this), false);
+        document.addEventListener('mousedown', this.onDocumentMouseDown.bind(this), false);
+        document.addEventListener('mouseup', this.onDocumentMouseUp.bind(this), false);
+        //document.addEventListener('touchstart', onPointerStart, false); //touch support
+        //document.addEventListener('touchmove', onPointerMove, false);
+
+        //start animation loop
+        this.render();
+    },//end init
+
+    render : function() {
+        var delta = this.clock.getDelta();
+        if (this.mixer != null) {
+            this.mixer.update(delta);
+        };
+    
+        this.time += delta;
+        for (var i = 0; i < this.lights.length; i++) {
+            this.lights[i].update(this.time);
+        }
+
+        if (PROJECTS[this.dialog.projectIdx].model != null) {
+            PROJECTS[this.dialog.projectIdx].model.rotation.y -= 0.02;
+        }
+
+        //view controls
+        this.lat = Math.max(-85, Math.min(85, this.lat));
+        this.phi = THREE.Math.degToRad(90 - this.lat);
+        this.theta = THREE.Math.degToRad(this.lon);
+        this.camera.target.x = 500 * Math.sin(this.phi) * Math.cos(this.theta);
+        this.camera.target.y = 500 * Math.cos(this.phi);
+        this.camera.target.z = 500 * Math.sin(this.phi) * Math.sin(this.theta);
+
+        this.camera.lookAt(this.camera.target);
+
+        this.renderer.render(this.scene, this.camera);
+
+        requestAnimationFrame(this.render.bind(this));
+    },
+
+    loadProjectAsset : function (idx) {
+        this.loader.load(
+            PROJECTS[idx].modelPath,
+            function (gltf) {
+                gltf.scene.traverse(function (node) {
+                    if (node instanceof THREE.Mesh) {
+                        node.castShadow = true;
+                        node.receiveShadow = true;
+                    }
+                });
+                var m = gltf.scene;
+                m.position.x = -3.4;
+                m.position.y = 8.6;
+                m.position.z = 0.3;
+                m.rotation.z = 0.1;
+                m.visible = false;
+                this.scene.add(m);
+                PROJECTS[idx].model = m;
+            }.bind(this),
+            function (xhr) {
+                //TODO: display loading progress or some type of feedback
+            },
+            function (error) {
+                //console.log(error);
+            }
+        );
+    },
+
+    setHomePositions : function() {
+        if (this.mixer != null) {
+            this.mixer.stopAllAction();
+            this.ANIMATIONS.transition.setEffectiveTimeScale(-1);
+            this.ANIMATIONS.projects.crossFadeTo(this.ANIMATIONS.transition, 1.5, false).play();
+            this.ANIMATIONS.home.crossFadeFrom(this.ANIMATIONS.transition, 1.5, false).play();
+        }
+        this.camera.position.set(this.CAMERA_POSITIONS.home.x, this.CAMERA_POSITIONS.home.y, this.CAMERA_POSITIONS.home.z);
+        if (PROJECTS[this.dialog.projectIdx].model) {
+            PROJECTS[this.dialog.projectIdx].model.visible = false;
+        }
+    },
+
+    setZoomPositions : function() {
+        if (this.mixer != null) {
+            this.mixer.stopAllAction();
+            this.ANIMATIONS.transition.setEffectiveTimeScale(1);
+            this.ANIMATIONS.home.crossFadeTo(this.ANIMATIONS.transition, 1.5, false).play();
+            this.ANIMATIONS.projects.crossFadeFrom(this.ANIMATIONS.transition, 1.5, false).play();
+        }
+        this.camera.position.set(this.CAMERA_POSITIONS.projects.x, this.CAMERA_POSITIONS.projects.y, this.CAMERA_POSITIONS.projects.z);
+    },
+
+    onWindowResize : function(e) {
+        this.renderer.setSize(window.innerHeight * 4 / 3, window.innerHeight);
+    },
+
+    onDocumentMouseMove : function(e) {
+        if (this.isUserInteracting === true) {
+            var clientX = e.clientX;
+            var clientY = e.clientY;
+            this.lon = (this.onMouseDownMouseX - clientX) * 0.1 + this.onMouseDownLon;
+            this.lat = (clientY - this.onMouseDownMouseY) * 0.1 + this.onMouseDownLat;
+
+            //restrict viewing angles
+            if (this.lon > -70) this.lon = -70;
+            if (this.lon < -110) this.lon = -110;
+            if (this.lat > 15) this.lat = 15;
+            if (this.lat < -20) this.lat = -20;
+        }
+    },
+
+    onDocumentMouseDown : function(e) {
+        this.isUserInteracting = true;
+        this.onMouseDownMouseX = e.clientX;
+        this.onMouseDownMouseY = e.clientY;
+        this.onMouseDownLon = this.lon;
+        this.onMouseDownLat = this.lat;
+    },
+
+    onDocumentMouseUp : function(e) {
+        this.isUserInteracting = false;
+    },
+};
+
+ShopScene.init();

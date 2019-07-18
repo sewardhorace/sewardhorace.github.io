@@ -1,0 +1,31 @@
+body {
+  background-color: #333333;
+}
+
+.content {
+
+	background-color: white;
+}
+
+.header {
+  padding: 15px 15px 0;
+  background-color: #616161;
+  color: white;
+  margin: 0 -15px;
+}
+
+.header h1 {
+  margin-bottom: 0;
+}
+
+h2 {
+  background-color: #4888EF;
+  color: white;
+  margin: 0 -15px 10px;
+  padding: 10px 15px 0;
+}
+
+img {
+  width: 100%;
+  margin: 10px 0;
+}

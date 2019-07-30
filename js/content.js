@@ -5,13 +5,18 @@ var PROJECTS = [
         model: null,
     },
     {
-        html: '<a href="https://twitter.com/fabricreature" target="_blank">Tweet Bestiary</a>: a Twitter bot that generates randomized fantastic creatures',
-        modelPath: 'assets/axe.glb',
+        html: '<a href="https://gsuite.google.com/marketplace/app/text_randomizer/188517091943" target="_blank">Text Randomizer</a>: a published Google Sheets add-on that converts a spreadsheet into a customizable random text generator suitable for use with Tabletop RPGs.',
+        modelPath: 'assets/warhammer.glb',
         model: null,
     },
     {
         html: '<a href="http://revugle.com" target="_blank">Revugle</a>: a web app for sharing reviews with friends. Built with Python/Django.',
         modelPath: 'assets/helm.glb',
+        model: null,
+    },
+    {
+        html: '<a href="https://twitter.com/fabricreature" target="_blank">Tweet Bestiary</a>: a Twitter bot that generates randomized fantastic creatures',
+        modelPath: 'assets/axe.glb',
         model: null,
     },
     {

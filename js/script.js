@@ -129,7 +129,7 @@ var Dialog = {
     },
 
     displayLoading : function() {
-        this.updateText('Loading 3D... Please wait...');
+        this.updateText('Loading 3D... Please wait...\nTo skip 3D content visit <a href="http://www.maxjwhite.com/links/">maxjwhite.com/links</a>.');
         this.updateOptions([]);
     },
 
